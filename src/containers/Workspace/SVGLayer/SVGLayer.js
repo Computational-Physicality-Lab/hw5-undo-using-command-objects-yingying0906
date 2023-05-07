@@ -138,6 +138,7 @@ const SVGLayer = () => {
 			setDrawing(false);
 			setInitPoint({ x: undefined, y: undefined });
 			setCurrPoint({ x: undefined, y: undefined });
+			selectShape(undefined);
 		} else {
 			if (dragged === true) {
 				movedShape();
