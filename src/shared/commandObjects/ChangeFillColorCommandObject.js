@@ -1,72 +1,82 @@
 import CommandObject from "./CommandObject";
 
 export default class ChangeFillColorCommandObject extends CommandObject {
-  constructor(undoHandler) {
-    super(undoHandler, true);
-  }
+	constructor(undoHandler) {
+		super(undoHandler, true);
+	}
+	getName() {
+		return "Change " + this.targetObject.type + " fill Color to ";
+	}
+	getColor() {
+		if (this.newValue) {
+			return this.newValue;
+		} else {
+			return "Unknown Color";
+		}
+	}
 
-  /* override to return true if this command can be executed,
-   *  e.g., if there is an object selected
-   */
-  canExecute() {
-    return selectedObj !== null; // global variable for selected
-  }
+	/* override to return true if this command can be executed,
+	 *  e.g., if there is an object selected
+	 */
+	canExecute(selectedObj) {
+		return selectedObj !== null; // global variable for selected
+	}
 
-  /* override to execute the action of this command.
-   * pass in false for addToUndoStack if this is a command which is NOT
-   * put on the undo stack, like Copy, or a change of selection or Save
-   */
-  execute() {
-    if (selectedObj !== null) {
-      this.targetObject = selectedObj; // global variable for selected
-      this.oldValue = selectedObj.fillColor; // object's current color
-      this.newValue = fillColorWidget.currentColor; // get the color widget's current color
-      selectedObj.fillColor = this.newValue; // actually change
+	/* override to execute the action of this command.
+	 * pass in false for addToUndoStack if this is a command which is NOT
+	 * put on the undo stack, like Copy, or a change of selection or Save
+	 */
+	execute(state, fillColor) {
+		const selectedObj = state.shapesMap[state.selectedShapeId];
 
-      // Note that this command object must be a NEW command object so it can be
-      // registered to put it onto the stack
-      if (this.addToUndoStack) this.undoHandler.registerExecution(this);
-    }
-  }
+		if (selectedObj !== null) {
+			this.targetObject = selectedObj; // global variable for selected
+			this.oldValue = selectedObj.fillColor; // object's current color
+			this.newValue = fillColor; // get the color widget's current color
+			this.targetObject.fillColor = this.newValue; // actually change
 
-  /* override to undo the operation of this command
-   */
-  undo() {
-    this.targetObject.fillColor = this.oldValue;
-    // maybe also need to fix the palette to show this object's color?
-  }
+			// Note that this command object must be a NEW command object so it can be
+			// registered to put it onto the stack
+			if (this.addToUndoStack) this.undoHandler.registerExecution(this);
+		}
+	}
 
-  /* override to redo the operation of this command, which means to
-   * undo the undo. This should ONLY be called if the immediate
-   * previous operation was an Undo of this command. Anything that
-   * can be undone can be redone, so there is no need for a canRedo.
-   */
-  redo() {
-    this.targetObject.fillColor = this.newValue;
-    // maybe also need to fix the palette to show this object's color?
-  }
+	/* override to undo the operation of this command
+	 */
+	undo(state) {
+		const targetId = this.targetObject.id;
 
-  /* override to return true if this operation can be repeated in the
-   * current context
-   */
-  canRepeat() {
-    return selectedObj !== null;
-  }
+		// select
+		state.selectedShapeId = targetId;
 
-  /* override to execute the operation again, this time possibly on
-   * a new object. Thus, this typically uses the same value but a new
-   * selectedObject.
-   */
-  repeat() {
-    if (selectedObj !== null) {
-      this.targetObject = selectedObj; // get new selected obj
-      this.oldValue = selectedObj.fillColor; // object's current color
-      // no change to newValue since reusing the same color
-      selectedObj.fillColor = this.newValue; // actually change
+		// update local object color
+		this.targetObject.fillColor = this.oldValue;
 
-      // Note that this command object must be a NEW command object so it can be
-      // registered to put it onto the stack
-      if (this.addToUndoStack) this.undoHandler.registerExecution({...this});
-    }
-  }
+		// change state of shapes map
+		state.shapesMap[targetId].fillColor = this.oldValue;
+
+		// the palette
+		state.currFillColor = this.oldValue;
+	}
+
+	/* override to redo the operation of this command, which means to
+	 * undo the undo. This should ONLY be called if the immediate
+	 * previous operation was an Undo of this command. Anything that
+	 * can be undone can be redone, so there is no need for a canRedo.
+	 */
+	redo(state) {
+		const targetId = this.targetObject.id;
+
+		// select
+		state.selectedShapeId = targetId;
+
+		// update local object color
+		this.targetObject.fillColor = this.newValue;
+
+		// change state of shapes map
+		state.shapesMap[targetId].fillColor = this.newValue;
+
+		// the palette
+		state.currFillColor = this.newValue;
+	}
 }
