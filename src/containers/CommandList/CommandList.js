@@ -2,6 +2,16 @@ import React from "react";
 import "./CommandList.css";
 
 class CommandList extends React.Component {
+	componentDidUpdate(prevProps) {
+		const { commandList } = this.props;
+
+		if (commandList.length > prevProps.commandList.length) {
+			// Scroll the div box to the bottom
+			const divBox = document.querySelector(".command-list");
+			divBox.scrollTop = divBox.scrollHeight;
+		}
+	}
+
 	render() {
 		const { commandList, currCommand } = this.props;
 

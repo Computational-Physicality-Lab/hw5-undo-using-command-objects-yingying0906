@@ -1,50 +1,62 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/JJ3jryix)
+
 # HW5 Starting Code
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Prerequisites
+# 姓名
 
-Before running the script, ensure that you have installed and are using **Node.js v16**.
+-   羅寶瑩
+-   Po Ying, Law
 
-If you want to install multiple versions of Node.js, `nvm` will be a good choice. Follow this [tutorial](https://www.casper.tw/development/2022/01/10/install-nvm/) to install and use `nvm`.
+# 實作的網站
 
+> 你所實作的網站如何被測試
 
-## Available Scripts
+**Please enter the following URL to test.**
+https://gleeful-malabi-04596c.netlify.app/
 
-In the project directory, you can run:
+# 加分作業項目
 
-### `npm install`
-Install all the dependencies. Make sure to run at least once after cloning this starter code.
+> 你所實作的加分作業項目，以及如何觸發它
 
-### `npm start`
+## 對所有與線條相關的操作提供撤銷/重做功能（最多在此作業中+5 分）
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   The following actions can be undone and redone.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+    -   Draw a line.
+    -   Delete a line.
+    -   Changing the border color of the selected line will be added to the command list stack.
 
-### `npm run build`
+-   The following actions **cannot** be undone and redone.
+    -   Changing the fill color of the selected line will **not** be added to the command list stack.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![](https://hackmd.io/_uploads/HJy8_yB4n.gif)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## 撤銷、重作鍵盤快捷鍵實現 （每個+1，最多在本作業中+2 分）
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-   Press Ctrl+Z to undo.
+-   Press Ctrl+Y to redo.
 
-### `npm run eject`
+## 增加命令列表區塊（最多在此作業中+5 分）
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+-   當前操作、將未完成（撤銷且可被重做）的操作顯示為灰色
+    -   ![](https://hackmd.io/_uploads/SJwlFJSNn.png)
+-   應該刪除「由於撤消之後進行新操作，而不可被重做」的操作
+    -   ![](https://hackmd.io/_uploads/B1bwtyrNh.gif)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# 困難之處
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+> 認為此作業最難實作的部分與原因
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Understanding the sample code:
+   One of the difficulties in this assignment is understanding the provided sample code. It is important to comprehend how the program works and how the command object and list are manipulated in order to write code without encountering errors.
 
-## Credit
+2. Handling repeated trigger actions:
+   When dealing with actions such as **changing the border width (slider)** and **moving shapes**, it's important to address the issue of continuous triggering in the `changeCurrBorderColor()` and `moveShape()` functions. To prevent the creation of a large number of command objects and to ensure proper functionality for redoing actions, it is necessary to create a separate function. This function should be called after the moving or changing action has been completed.
 
-https://github.com/lxieyang/05631-hw5-base
+# 有趣內容
+
+> 其他與軟體設計相關之感興趣內容
+
+-   Due to testing, it was found that when the command object becomes too long, it exceeds the boundary. Therefore, a scroll bar has been added.
