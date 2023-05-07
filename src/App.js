@@ -95,6 +95,9 @@ class App extends Component {
 			this.setState((prevState) => ({
 				currCommand: prevState.currCommand - 1,
 			}));
+
+			// change to select mode
+			this.changeCurrMode("select");
 		}
 	};
 
@@ -113,6 +116,9 @@ class App extends Component {
 			this.setState((prevState) => ({
 				currCommand: prevState.currCommand + 1, //
 			}));
+
+			// change to select mode
+			this.changeCurrMode("select");
 		}
 	};
 
@@ -157,7 +163,8 @@ class App extends Component {
 	};
 
 	moveShape = (newData) => {
-		const target = this.state.shapesMap[this.state.selectedShapeId];
+		const { shapesMap, selectedShapeId } = this.state;
+		const target = shapesMap[selectedShapeId];
 		// record the starting coordinate of the shape
 		if (!this.isSliding) {
 			let oldCoords = {
@@ -168,8 +175,8 @@ class App extends Component {
 			this.isSliding = true;
 		}
 
-		if (this.state.selectedShapeId) {
-			this.updateShape(this.state.selectedShapeId, newData);
+		if (selectedShapeId) {
+			this.updateShape(selectedShapeId, newData);
 			this.finalCoordinate = newData;
 		}
 	};
@@ -197,9 +204,10 @@ class App extends Component {
 	};
 
 	changeCurrBorderColor = (borderColor) => {
+		const { selectedShapeId } = this.state;
 		this.setState({ currBorderColor: borderColor });
-		if (this.state.selectedShapeId) {
-			this.updateShape(this.state.selectedShapeId, { borderColor });
+		if (selectedShapeId) {
+			this.updateShape(selectedShapeId, { borderColor });
 
 			// add command object
 			let cmdObj = new ChangeBorderColorCommandObject(this.undoHandler);
@@ -235,8 +243,10 @@ class App extends Component {
 
 	changeCurrFillColor = (fillColor) => {
 		this.setState({ currFillColor: fillColor });
-		if (this.state.selectedShapeId) {
-			this.updateShape(this.state.selectedShapeId, { fillColor });
+
+		const { selectedShapeId, shapesMap } = this.state;
+		if (selectedShapeId && shapesMap[selectedShapeId].type !== "line") {
+			this.updateShape(selectedShapeId, { fillColor });
 
 			// add command object
 			let cmdObj = new ChangeFillColorCommandObject(this.undoHandler);

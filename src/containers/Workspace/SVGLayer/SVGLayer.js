@@ -20,6 +20,8 @@ const SVGLayer = () => {
 		movedShape,
 		selectedShapeId,
 		selectShape,
+		undo,
+		redo,
 	} = useContext(ControlContext);
 
 	// use useState to set elements in the React state directly
@@ -169,6 +171,7 @@ const SVGLayer = () => {
 							y: draggingShape.finalCoords.y,
 						},
 					});
+					setDragged(false);
 					setDragging(false);
 					setDraggingShape(undefined);
 					setMouseDownPoint({ x: undefined, y: undefined });
@@ -176,6 +179,23 @@ const SVGLayer = () => {
 			}
 		},
 		[drawing, dragging, draggingShape, moveShape]
+	);
+
+	const ctrlZKeyDownHandler = useCallback(
+		(e) => {
+			if (e.key === "z" && e.ctrlKey) {
+				undo();
+			}
+		},
+		[undo]
+	);
+	const ctrlYKeyDownHandler = useCallback(
+		(e) => {
+			if (e.key === "y" && e.ctrlKey) {
+				redo();
+			}
+		},
+		[redo]
 	);
 
 	// useEffect will run after the render is committed to the screen
@@ -186,6 +206,16 @@ const SVGLayer = () => {
 		return () =>
 			window.removeEventListener("keydown", escKeyDownHandler, true);
 	}, [escKeyDownHandler]);
+	useEffect(() => {
+		window.addEventListener("keydown", ctrlZKeyDownHandler, true);
+		return () =>
+			window.removeEventListener("keydown", ctrlZKeyDownHandler, true);
+	}, [ctrlZKeyDownHandler]);
+	useEffect(() => {
+		window.addEventListener("keydown", ctrlYKeyDownHandler, true);
+		return () =>
+			window.removeEventListener("keydown", ctrlYKeyDownHandler, true);
+	}, [ctrlYKeyDownHandler]);
 
 	const genShape = (shapeData, key = undefined) => {
 		const {
