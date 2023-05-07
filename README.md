@@ -41,9 +41,9 @@ https://gleeful-malabi-04596c.netlify.app/
 ## 增加命令列表區塊（最多在此作業中+5 分）
 
 -   當前操作、將未完成（撤銷且可被重做）的操作顯示為灰色
-    -   ![](https://hackmd.io/_uploads/SJwlFJSNn.png)
+![](https://hackmd.io/_uploads/SJwlFJSNn.png)
 -   應該刪除「由於撤消之後進行新操作，而不可被重做」的操作
-    -   ![](https://hackmd.io/_uploads/B1bwtyrNh.gif)
+![](https://hackmd.io/_uploads/B1bwtyrNh.gif)
 
 # 困難之處
 
@@ -60,4 +60,4 @@ https://gleeful-malabi-04596c.netlify.app/
 > 其他與軟體設計相關之感興趣內容
 
 -   Due to testing, it was found that when the command object becomes too long, it exceeds the boundary. Therefore, a scroll bar has been added.
-    ![](https://hackmd.io/_uploads/r1iE1eHVn.gif)
+![](https://hackmd.io/_uploads/r1iE1eHVn.gif)
