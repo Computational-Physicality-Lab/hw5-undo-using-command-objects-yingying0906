@@ -30,8 +30,8 @@ https://gleeful-malabi-04596c.netlify.app/
 
 -   The following actions **cannot** be undone and redone.
     -   Changing the fill color of the selected line will **not** be added to the command list stack.
-
-![](https://hackmd.io/_uploads/HJy8_yB4n.gif)
+  
+![1683449907020](https://user-images.githubusercontent.com/30721578/236669645-302b9e4b-9438-416b-bb8e-006fb67409f9.gif)
 
 ## 撤銷、重作鍵盤快捷鍵實現 （每個+1，最多在本作業中+2 分）
 
@@ -41,9 +41,9 @@ https://gleeful-malabi-04596c.netlify.app/
 ## 增加命令列表區塊（最多在此作業中+5 分）
 
 -   當前操作、將未完成（撤銷且可被重做）的操作顯示為灰色
-![](https://hackmd.io/_uploads/SJwlFJSNn.png)
+    - ![image](https://user-images.githubusercontent.com/30721578/236669659-49fcb747-9e5b-4160-80a2-aef2c9e4c6a7.png)
 -   應該刪除「由於撤消之後進行新操作，而不可被重做」的操作
-![](https://hackmd.io/_uploads/B1bwtyrNh.gif)
+    - ![1683450186402](https://user-images.githubusercontent.com/30721578/236669680-1a3becb4-e135-40fe-b9fd-6700c9ecbc70.gif)
 
 # 困難之處
 
@@ -60,4 +60,5 @@ https://gleeful-malabi-04596c.netlify.app/
 > 其他與軟體設計相關之感興趣內容
 
 -   Due to testing, it was found that when the command object becomes too long, it exceeds the boundary. Therefore, a scroll bar has been added.
-![](https://hackmd.io/_uploads/r1iE1eHVn.gif)
+![1683451673048](https://user-images.githubusercontent.com/30721578/236669692-1916cf8f-752d-434f-bda0-fc9714d2a9aa.gif)
+
