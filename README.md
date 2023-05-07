@@ -60,3 +60,4 @@ https://gleeful-malabi-04596c.netlify.app/
 > 其他與軟體設計相關之感興趣內容
 
 -   Due to testing, it was found that when the command object becomes too long, it exceeds the boundary. Therefore, a scroll bar has been added.
+    ![](https://hackmd.io/_uploads/r1iE1eHVn.gif)
