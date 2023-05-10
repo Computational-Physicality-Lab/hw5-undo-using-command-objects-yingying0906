@@ -98,6 +98,9 @@ class App extends Component {
 
 			// change to select mode
 			this.changeCurrMode("select");
+
+			//select the shape
+			this.setState({ selectedShapeId: commandObject.targetObject.id });
 		}
 	};
 
@@ -119,6 +122,9 @@ class App extends Component {
 
 			// change to select mode
 			this.changeCurrMode("select");
+
+			//select the shape
+			this.setState({ selectedShapeId: commandObject.targetObject.id });
 		}
 	};
 
@@ -201,6 +207,8 @@ class App extends Component {
 		} else {
 			this.setState({ currMode: mode });
 		}
+		// change mode should unselect
+		this.setState({ selectedShapeId: undefined });
 	};
 
 	changeCurrBorderColor = (borderColor) => {
