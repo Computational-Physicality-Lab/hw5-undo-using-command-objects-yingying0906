@@ -26,7 +26,9 @@ https://gleeful-malabi-04596c.netlify.app/
 
     -   Draw a line.
     -   Delete a line.
-    -   Changing the border color of the selected line will be added to the command list stack.
+    -   Move a line.
+    -   Changing the border color
+    -   Changing the border width
 
 -   The following actions **cannot** be undone and redone.
     -   Changing the fill color of the selected line will **not** be added to the command list stack.
